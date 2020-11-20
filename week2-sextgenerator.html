@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>💌</title>
+    <!--
+Love Letters reimplementation
+copyright (c) 2014 Nick Montfort <nickm@nickm.com>
+based on a 1952 program by Christopher Strachey
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR
+IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+Updated 10 March 2015 to correct the word lists. Sources are photographs
+of Christoper Stachey's notes in the Bodleian Library from J.R. Carpenter
+and table 14.1 in Noah Wardrip-Fruin's article "Digital Media Archaeology."
+
+Updated 28 August 2019 to add a link to "The Ferranti Mark 1 Gallery."
+Updated Nov 2020 for the "Algorithmic poetry" class, School of Machines and Make Believe
+
+-->
+    <style type="text/css">
+        /* <![CDATA[ */
+
+        body {
+            background: #000;
+            color: #ccc;
+            margin: 0 0 0 18pt;
+            font-family: Optima, sans-serif;
+            font-size: 16pt;
+        }
+
+        button {
+            padding: 4px 8px;
+            border-radius: 2px;
+        }
+
+        #main {
+            padding-top: 18px;
+            width: 70%;
+            margin-left: 15%;
+        }
+
+        #messageArea {
+            margin-top: 16px;
+        }
+
+        .message {
+            background-color: #eee;
+            color: #000;
+            font-family: sans-serif;
+            font-weight: lighter;
+            padding: 4px 8px;
+            padding-top: 4px;
+            padding-right: 8px;
+            padding-bottom: 4px;
+            padding-left: 8px;
+            width: max-content;
+            border-radius: 6px;
+            margin-bottom: 4px;
+        }
+
+        /* ]]> */
+    </style>
+    <script type="text/javascript">
+        const openers = ['wyd', 'u up?', 'hey bb', 'hey 😏', 'hey hot stuff', 'hi sexy'];
+        const verbs = ['wanna', 'cant wait 2', 'want ur', 'id luv 2', 'do u wanna', 'what would u do if i', 'want u 2', 'was thinkin about'];
+        const parts = ['💋', '👄', '👌', '🦶', '🦷', '👅', '👂', '👃', '🦵', '🧠', '🍌', '🍒', '🍑', '🍆', '🍖', '🦴', '🥩', '🍗', '👁️', '👀', '👉', '🤏', '🖖', '💪', '🤙', '👋', '🗣', '🐱', '💥', '💦', '✨', '🌮', '🌯', '🍼', '🍴', '🕯', '🔨', '⛓', '🔪', '🚬', '🕳', '🩸', '🔥', '👖', '💀', '🚗'];
+        const bridges = ['in my', 'all over ur', 'on ur', '', 'in ur', 'my', 'ur', '', '', ''];
+        const end = [' lol ', ' uwu ', ' jk...unless ur down ', ' if ur into that ', '😘', '😝', '😛', '😜', '🤪', '🥺', '😩', '😳', '😬', '🥴', '🙈', '❤️', '💕', '💖', '🌈', '🔥', '😉', '😈'];
+
+        function rand_range(maximum) {
+            return Math.floor(Math.random() * (maximum + 1));
+        }
+
+        function choose(array) {
+            return array[rand_range(array.length - 1)];
+        }
+
+        function firstMsg() {
+            return choose(openers);
+        }
+
+        function secondMsg() {
+            return choose(verbs) + ' ' + choose(parts) + ' ' + choose(bridges) + ' ' + choose(parts);
+        }
+
+        function thirdMsg() {
+            return choose(end) + choose(end) + choose(end);
+        }       
+
+        function sext() {
+            const firstMessage = document.getElementById('first');
+            const secondMessage = document.getElementById('second');
+            const thirdMessage = document.getElementById('third');
+            const button = document.getElementById('button');
+            const messageArea = document.getElementById('messageArea');
+            const sextInterval = setInterval(message, 2000);
+            button.setAttribute('disabled', 'true');
+
+            if (firstMessage && secondMessage && thirdMessage) {
+                messageArea.removeChild(firstMessage);
+                messageArea.removeChild(secondMessage);
+                messageArea.removeChild(thirdMessage);
+            }
+            function message() {
+                const firstMessage = document.getElementById('first');
+                const secondMessage = document.getElementById('second');
+                const thirdMessage = document.getElementById('third');
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('message');
+                if (firstMessage && secondMessage && thirdMessage) {
+                    clearInterval(sextInterval);
+                    button.removeAttribute('disabled');
+                    return;
+                }
+                if (firstMessage && secondMessage) {
+                    newMessage.id = 'third';
+                    newMessage.innerHTML = thirdMsg();
+                    messageArea.append(newMessage);
+                } else if (firstMessage) {
+                    newMessage.id = 'second';
+                    newMessage.innerHTML = secondMsg();
+                    messageArea.append(newMessage);
+                } else {
+                    newMessage.id = 'first';
+                    newMessage.innerHTML = firstMsg();
+                    messageArea.append(newMessage);
+                }
+            }            
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="main">
+        <button id="button" onclick="sext()">click 2 sext</button>
+        <div id="messageArea"></div>
+    </div>
+</body>
+
+</html>
