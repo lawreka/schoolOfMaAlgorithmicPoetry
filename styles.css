@@ -16,6 +16,14 @@ iframe {
     margin: 0 10%;
 }
 
+@media (max-width: 450px) {
+    iframe {
+        width: 90%;
+        height: 250px;
+        margin: 0px 5%;
+    }
+}
+
 .week {
     display: flex;
     border-bottom: 2px solid #333;
